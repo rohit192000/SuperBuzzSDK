@@ -506,9 +506,9 @@ class SBAlert {
             console.log("register sw");
             try {
                 var that = this;
-                if ('serviceWorker' in navigator) {
-                    // window.addEventListener("load", function () {
-                    navigator.serviceWorker.register('/apps/source/SuperBuzzSDKWorker.js', {
+                if ('serviceWorker' in navigator) { //It will check if browser supported serviceworker or not
+                    window.addEventListener("load", function () { // It will work on every load of website
+                    navigator.serviceWorker.register('/apps/source/SuperBuzzSDKWorker.js', { // new relative path to access SuperBuzzSDKWorker.js file from server
                         updateViaCache: 'none'
                     })
                         .then(function (swReg) {
@@ -522,7 +522,7 @@ class SBAlert {
                                 window.SuperBuzzUB.start();
                             }*/
                         });
-                    // });
+                    });
                 }
 
             } catch (err) {
