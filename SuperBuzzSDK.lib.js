@@ -1,5 +1,5 @@
-      
-      var push_permission_type;
+
+var push_permission_type;
 var push_user_endpoint = null;
 var push_user_id = null;
 var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
@@ -354,7 +354,7 @@ class SBAlert {
             });
         } else {
             var that = this;
-            this.allow.onclick = function() {
+            this.allow.onclick = function () {
                 that.panel.style.transform = 'translateY(-100%)';
                 setTimeout(() => {
                     that.container.remove();
@@ -422,7 +422,7 @@ class SBAlert {
     }
 }
 //-------------------------------------------------------------------
-(function(window) {
+(function (window) {
     'use strict';
     function SB_alert(icon, text, topics, empty) {
         new SBAlert(icon, text, topics, empty);
@@ -437,7 +437,7 @@ class SBAlert {
         let sb_prompt = null;
         let selected_topics = [];
         var _SuperBuzzSDKObject = {};
-        _SuperBuzzSDKObject.init = function(options) {
+        _SuperBuzzSDKObject.init = function (options) {
             sb_app_id = options.app_id;
             /*if(typeof(window.SuperBuzzUB) === 'undefined'){
                 window.SuperBuzzUB = SuperBuzzUB(sb_app_id);
@@ -449,7 +449,7 @@ class SBAlert {
             var params = 'app_id=' + sb_app_id + '&origin=' + window.location.href;
             http.open('POST', url, true);
             http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-            http.onreadystatechange = function() {
+            http.onreadystatechange = function () {
                 if (http.readyState == 4 && http.status == 200) {
                     var setting = JSON.parse(http.responseText);
                     console.log(setting);
@@ -477,22 +477,22 @@ class SBAlert {
             }
             http.send(params);
         };
-        _SuperBuzzSDKObject.getAppId = function() {
+        _SuperBuzzSDKObject.getAppId = function () {
             return sb_app_id;
         };
-        _SuperBuzzSDKObject.getPrompt = function() {
+        _SuperBuzzSDKObject.getPrompt = function () {
             return sb_prompt;
         };
-        _SuperBuzzSDKObject.setPromptSelectedTopics = function(topics) {
+        _SuperBuzzSDKObject.setPromptSelectedTopics = function (topics) {
             this.selected_topics = topics;
         };
-        _SuperBuzzSDKObject.getPromptSelectedTopics = function() {
+        _SuperBuzzSDKObject.getPromptSelectedTopics = function () {
             return this.selected_topics;
         };
-        _SuperBuzzSDKObject.propmt = function(icon, text, topics, empty) {
+        _SuperBuzzSDKObject.propmt = function (icon, text, topics, empty) {
             return SB_alert(icon, text, topics, empty);
         };
-        _SuperBuzzSDKObject.urlB64ToUint8Array = function(base64String) {
+        _SuperBuzzSDKObject.urlB64ToUint8Array = function (base64String) {
             const padding = '='.repeat((4 - base64String.length % 4) % 4);
             const base64 = (base64String + padding).replace(/\-/g, '+').replace(/_/g, '/');
             const rawData = window.atob(base64);
@@ -502,34 +502,34 @@ class SBAlert {
             }
             return outputArray;
         };
-        _SuperBuzzSDKObject.register_sw = function() {
+        _SuperBuzzSDKObject.register_sw = function () {
             console.log("register sw");
             try {
                 var that = this;
-              if('serviceWorker' in navigator){
-                  // window.addEventListener("load", function () {
+                if ('serviceWorker' in navigator) {
+                    // window.addEventListener("load", function () {
                     navigator.serviceWorker.register('/apps/source/SuperBuzzSDKWorker.js', {
                         updateViaCache: 'none'
                     })
-                    .then(function(swReg) {
-                        //console.log( swReg.active.state );
-                        console.log('Service Worker is registered', swReg);
-                        swRegistration = swReg;
-                        console.log("--- calling showOffer");
-                        that.showOffer();
-                        /*if(typeof(window.SuperBuzzUB) === 'undefined'){
-                            window.SuperBuzzUB = SuperBuzzUB(sb_app_id);
-                            window.SuperBuzzUB.start();
-                        }*/
-                    });
-                  // });
-            }
+                        .then(function (swReg) {
+                            //console.log( swReg.active.state );
+                            console.log('Service Worker is registered', swReg);
+                            swRegistration = swReg;
+                            console.log("--- calling showOffer");
+                            that.showOffer();
+                            /*if(typeof(window.SuperBuzzUB) === 'undefined'){
+                                window.SuperBuzzUB = SuperBuzzUB(sb_app_id);
+                                window.SuperBuzzUB.start();
+                            }*/
+                        });
+                    // });
+                }
 
             } catch (err) {
                 console.log("push not supported");
             }
         };
-        _SuperBuzzSDKObject.register_sfri = function() {
+        _SuperBuzzSDKObject.register_sfri = function () {
             console.log("register sfri");
             console.log(sbuzz_safari);
             console.log(sbuzz_push_id);
@@ -540,7 +540,7 @@ class SBAlert {
                     console.log("permissionData");
                     console.log(permissionData);
                     console.log("current permission = " + permissionData.permission); //granted, default, blocked
-                    if (permissionData.permission === 'denied') {} else if (permissionData.permission === 'granted') {
+                    if (permissionData.permission === 'denied') { } else if (permissionData.permission === 'granted') {
                         //push_user_endpoint = subscription.endpoint;
                         //console.log( 'User IS subscribed.' );
                         //_SuperBuzzSDKObject.getPushUserID( push_user_endpoint );
@@ -558,7 +558,7 @@ class SBAlert {
                 console.log("push not supported");
             }
         };
-        _SuperBuzzSDKObject.subscribeSfriUser = function(permissionData) {
+        _SuperBuzzSDKObject.subscribeSfriUser = function (permissionData) {
             var that = this;
             console.log("now request permission");
             /*window.safari.pushNotification.requestPermission(
@@ -584,7 +584,7 @@ class SBAlert {
                 that.subscribeSfriUserClbk(permissionData);
             }
         };
-        _SuperBuzzSDKObject.subscribeSfriUserClbk = function(permissionData) {
+        _SuperBuzzSDKObject.subscribeSfriUserClbk = function (permissionData) {
             var that = this;
             console.log("inside subscribeSfriUserClbk");
             console.log(permissionData);
@@ -611,38 +611,38 @@ class SBAlert {
                 };*/
             }
         };
-        _SuperBuzzSDKObject.getPushUserID = function(endpoint) {
+        _SuperBuzzSDKObject.getPushUserID = function (endpoint) {
             var that = this;
             var http = new XMLHttpRequest();
             var url = base + '/api/pushuserid';
             http.open('POST', url, true);
             http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-            http.onreadystatechange = function() {
+            http.onreadystatechange = function () {
                 if (http.readyState == 4 && http.status == 200) {
                     if (http.responseText != '') {
                         var response = JSON.parse(http.responseText);
                         push_user_id = response.id;
                     }
-                } else if (http.status == 400) {}
+                } else if (http.status == 400) { }
             }
             http.send('endpoint=' + endpoint);
         };
-        _SuperBuzzSDKObject.promptAction = function(action) {
+        _SuperBuzzSDKObject.promptAction = function (action) {
             var that = this;
             var http = new XMLHttpRequest();
             var url = base + '/api/prompt-action';
             http.open('POST', url, true);
             http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-            http.onreadystatechange = function() {
-                if (http.readyState == 4 && http.status == 200) {} else if (http.status == 400) {}
+            http.onreadystatechange = function () {
+                if (http.readyState == 4 && http.status == 200) { } else if (http.status == 400) { }
             }
             http.send('app_id=' + sb_app_id + '&p_id=' + sb_prompt.id + '&action=' + action);
         };
-        _SuperBuzzSDKObject.showOffer = function() {
+        _SuperBuzzSDKObject.showOffer = function () {
             console.log("--- showOffer");
             var that = this;
             swRegistration.pushManager.getSubscription()
-                .then(function(subscription) {
+                .then(function (subscription) {
                     console.log(subscription);
                     isSubscribed = !(subscription === null);
                     console.log("current permission = " + Notification.permission); //granted, default, blocked
@@ -672,14 +672,14 @@ class SBAlert {
                     }
                 });
         };
-        _SuperBuzzSDKObject.subscribeUser = function() {
+        _SuperBuzzSDKObject.subscribeUser = function () {
             var that = this;
             const applicationServerKey = that.urlB64ToUint8Array(applicationServerPublicKey);
             swRegistration.pushManager.subscribe({
-                    userVisibleOnly: true,
-                    applicationServerKey: applicationServerKey
-                })
-                .then(function(subscription) {
+                userVisibleOnly: true,
+                applicationServerKey: applicationServerKey
+            })
+                .then(function (subscription) {
                     console.log('User is subscribed.');
                     that.updateSubscriptionOnServer(subscription);
                     push_user_endpoint = subscription.endpoint;
@@ -689,11 +689,11 @@ class SBAlert {
                         _SuperBuzzSDKObject.getPushUserID(push_user_endpoint);
                     }, 1000);
                 })
-                .catch(function(err) {
+                .catch(function (err) {
                     console.log('Failed to subscribe the user: ', err);
                 });
         };
-        _SuperBuzzSDKObject.updateSubscriptionOnServer = function(subscription) {
+        _SuperBuzzSDKObject.updateSubscriptionOnServer = function (subscription) {
             console.log("in updateSubscriptionOnServer");
             if (subscription) {
                 var http = new XMLHttpRequest();
@@ -722,20 +722,20 @@ class SBAlert {
         var uid;
         var start_time = 0;
         _UserBehaviourObject.app_id = app_id;
-        _UserBehaviourObject.getTimeStamp = function() {
+        _UserBehaviourObject.getTimeStamp = function () {
             return Date.now();
         };
-        _UserBehaviourObject.uid = function() {
+        _UserBehaviourObject.uid = function () {
             return Date.now().toString(36) + Math.random().toString(36).substr(2);
         }
         uid = _UserBehaviourObject.uid();
-        _UserBehaviourObject.server = function(data) {
+        _UserBehaviourObject.server = function (data) {
             var http = new XMLHttpRequest();
             var url = 'https://dd.superbuzz.io/api/save-ub';
             http.open('POST', url, true);
             http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
             //http.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-            http.onreadystatechange = function() {
+            http.onreadystatechange = function () {
                 if (http.readyState == 4 && http.status == 200) {
                     //console.log(http.responseText);                   
                 } else if (http.status == 400) {
@@ -757,7 +757,7 @@ class SBAlert {
             timeCount: true,
             clearAfterProcess: true, // todo
             processTime: 15,
-            processData: function(results) {
+            processData: function (results) {
                 results.uid = uid;
                 if (push_user_id) {
                     results.PUID = push_user_id;
@@ -796,8 +796,8 @@ class SBAlert {
                                 node = el.localName;
                                 (el.className !== "") ? el.classList.forEach((clE) => {
                                     node += "." + clE
-                                }): 0;
-                                (el.id !== "") ? node += "#" + el.id: 0;
+                                }) : 0;
+                                (el.id !== "") ? node += "#" + el.id : 0;
                                 path.push(node);
                             }
                         })
@@ -816,7 +816,7 @@ class SBAlert {
                 }
             }
         };
-        _UserBehaviourObject.resetResults = function() {
+        _UserBehaviourObject.resetResults = function () {
             results = {
                 appID: this.app_id || '',
                 URL: location.protocol + '//' + location.host + location.pathname,
@@ -846,13 +846,13 @@ class SBAlert {
         };
         //this.resetResults();
         _UserBehaviourObject.resetResults();
-        _UserBehaviourObject.config = function(ob) {
+        _UserBehaviourObject.config = function (ob) {
             user_config = {};
             Object.keys(defaults).forEach((i) => {
                 i in ob ? user_config[i] = ob[i] : user_config[i] = defaults[i];
             })
         };
-        _UserBehaviourObject.start = function() {
+        _UserBehaviourObject.start = function () {
             //uid = _UserBehaviourObject.uid();
             if (Object.keys(user_config).length !== Object.keys(defaults).length) {
                 console.log("no config provided. using default..");
@@ -898,7 +898,7 @@ class SBAlert {
                 _UserBehaviourObject.resetResults();
             }
         }*/
-        _UserBehaviourObject.stop = function() {
+        _UserBehaviourObject.stop = function () {
             if (user_config.processTime !== false) {
                 clearInterval(mem.processInterval);
             }
@@ -907,7 +907,7 @@ class SBAlert {
             window.removeEventListener("click", mem.eventsFunctions.click);
             window.removeEventListener("mousemove", mem.eventsFunctions.mouseMovement);
         }
-        _UserBehaviourObject.result = function() {
+        _UserBehaviourObject.result = function () {
             if (user_config.userInfo === false && userBehaviour.showResult().userInfo !== undefined) {
                 delete userBehaviour.showResult().userInfo;
             }
@@ -916,7 +916,7 @@ class SBAlert {
             }
             return results
         };
-        _UserBehaviourObject.showConfig = function() {
+        _UserBehaviourObject.showConfig = function () {
             if (Object.keys(user_config).length !== Object.keys(defaults).length) {
                 return defaults;
             } else {
@@ -926,7 +926,7 @@ class SBAlert {
         return _UserBehaviourObject;
     }
     //---------------------------------------------------------------
-    if (typeof(window.SuperBuzzSDK) === 'undefined') {
+    if (typeof (window.SuperBuzzSDK) === 'undefined') {
         window.SuperBuzzSDK = SuperBuzzSDK();
         //console.log(window.SuperBuzzSDK.getAppId());
         //window.SuperBuzzUB = SuperBuzzUB(window.SuperBuzzSDK.getAppId());
